@@ -20,5 +20,5 @@ export const Route = createFileRoute("/products")({
 
 function ProductsPage() {
   const { category } = Route.useSearch();
-  return <ProductCatalog initialCategory={category} />;
+  return <ProductCatalog initialCategory={category ?? "all"} />;
 }
