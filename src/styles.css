@@ -169,6 +169,14 @@
   text-transform: uppercase;
 }
 
+@utility bg-hero-overlay {
+  background: linear-gradient(90deg, color-mix(in oklab, var(--primary) 98%, transparent) 0%, color-mix(in oklab, var(--primary) 86%, transparent) 50%, color-mix(in oklab, var(--primary) 38%, transparent) 100%);
+}
+
+@utility bg-category-overlay {
+  background: linear-gradient(180deg, transparent 20%, color-mix(in oklab, var(--primary) 94%, transparent) 100%);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;

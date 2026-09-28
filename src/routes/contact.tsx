@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Building2, CheckCircle2, Mail, Phone, Send } from "lucide-react";
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
 });
 
-function Field({ label, id, children }: { label: string; id: string; children: React.ReactNode }) {
+function Field({ label, id, children }: { label: string; id: string; children: ReactNode }) {
   return <div><Label htmlFor={id} className="mb-2 block text-xs font-bold uppercase tracking-[0.08em]">{label}</Label>{children}</div>;
 }
 
