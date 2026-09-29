@@ -12,6 +12,8 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteFooter, SiteHeader } from "../components/site-shell";
+import { LocaleProvider } from "../lib/i18n";
+import { CartProvider } from "../lib/cart";
 
 function NotFoundComponent() {
   return (
@@ -101,7 +103,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="fr">
       <head>
         <HeadContent />
       </head>
@@ -117,12 +119,12 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}><LocaleProvider><CartProvider>
       <div className="flex min-h-screen flex-col">
         <SiteHeader />
         <main className="flex-1"><Outlet /></main>
         <SiteFooter />
       </div>
-    </QueryClientProvider>
+    </CartProvider></LocaleProvider></QueryClientProvider>
   );
 }
