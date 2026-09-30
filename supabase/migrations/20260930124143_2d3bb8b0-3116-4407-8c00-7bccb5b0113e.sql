@@ -1,0 +1,1 @@
+CREATE POLICY "Trusted service may manage inquiries" ON public.inquiries FOR ALL TO service_role USING (true) WITH CHECK (true);
