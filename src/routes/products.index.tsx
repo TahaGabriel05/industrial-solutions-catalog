@@ -5,7 +5,7 @@ import { ProductCatalog } from "@/components/product-catalog";
 
 const searchSchema = z.object({ category: z.string().optional() });
 
-export const Route = createFileRoute("/products")({
+export const Route = createFileRoute("/products/")({
   validateSearch: searchSchema,
   head: () => ({ meta: [
     { title: "Product Catalog | Atlas Industrial Supply" },
