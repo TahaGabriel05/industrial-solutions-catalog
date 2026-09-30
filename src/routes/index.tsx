@@ -12,10 +12,10 @@ import valvesCover from "@/assets/valves-cover.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
-    { title: "Atlas Industrial Supply | Tools, Fasteners, Fittings & Valves" },
-    { name: "description", content: "Professional tools, hardware, fasteners, industrial fittings and valves for maintenance, construction and industry." },
+    { title: "Atlas Industrial Supply | Outillage, fixations, raccords et vannes" },
+    { name: "description", content: "Outillage professionnel, fixations, raccords industriels et robinetterie pour la maintenance, la construction et l'industrie." },
     { property: "og:title", content: "Atlas Industrial Supply" },
-    { property: "og:description", content: "Industrial products specified for professional performance." },
+    { property: "og:description", content: "Produits industriels conçus pour les professionnels." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },
   ]}),
