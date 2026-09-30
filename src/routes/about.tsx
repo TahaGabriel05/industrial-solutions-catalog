@@ -7,10 +7,10 @@ import { useLocale } from "@/lib/i18n";
 
 export const Route = createFileRoute("/about")({
   head: () => ({ meta: [
-    { title: "About Atlas Industrial Supply" },
-    { name: "description", content: "Learn how Atlas supports industrial buyers with dependable products, clear specifications and responsive service." },
-    { property: "og:title", content: "About Atlas Industrial Supply" },
-    { property: "og:description", content: "A practical supply partner for maintenance, construction and industrial operations." },
+    { title: "À propos d'Atlas Industrial Supply" },
+    { name: "description", content: "Découvrez comment Atlas accompagne les professionnels avec des produits fiables et des conseils techniques clairs." },
+    { property: "og:title", content: "À propos d'Atlas Industrial Supply" },
+    { property: "og:description", content: "Un partenaire pour la maintenance, la construction et l'industrie." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },
   ]}),

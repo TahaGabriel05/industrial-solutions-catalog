@@ -8,10 +8,10 @@ const searchSchema = z.object({ category: z.string().optional() });
 export const Route = createFileRoute("/products/")({
   validateSearch: searchSchema,
   head: () => ({ meta: [
-    { title: "Product Catalog | Atlas Industrial Supply" },
-    { name: "description", content: "Browse professional tools, fasteners, industrial fittings, valves and faucets by category and specification." },
-    { property: "og:title", content: "Industrial Product Catalog | Atlas" },
-    { property: "og:description", content: "Search our professional industrial supply range by category, reference and specification." },
+    { title: "Catalogue de produits | Atlas Industrial Supply" },
+    { name: "description", content: "Découvrez l'outillage, les fixations, les raccords industriels et la robinetterie Atlas par catégorie et caractéristique." },
+    { property: "og:title", content: "Catalogue industriel | Atlas" },
+    { property: "og:description", content: "Recherchez nos produits industriels par catégorie, référence et caractéristique." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },
   ]}),
