@@ -6,7 +6,7 @@ const inquirySchema = z.object({
   name: z.string().trim().min(1).max(200),
   company: z.string().trim().min(1).max(200),
   phone: z.string().trim().min(1).max(80),
-  email: z.email().max(254),
+  email: z.string().email().max(254),
   productReference: z.string().trim().max(300).default(""),
   quantity: z.number().int().min(1).max(9999),
   message: z.string().trim().max(5000).default(""),
