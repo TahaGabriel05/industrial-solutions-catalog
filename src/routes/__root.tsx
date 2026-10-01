@@ -11,7 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { SiteFooter, SiteHeader } from "../components/site-shell";
+import { SiteFooter, SiteHeader, WhatsAppFab } from "../components/site-shell";
 import { LocaleProvider } from "../lib/i18n";
 import { CartProvider } from "../lib/cart";
 
@@ -124,6 +124,7 @@ function RootComponent() {
         <SiteHeader />
         <main className="flex-1"><Outlet /></main>
         <SiteFooter />
+        <WhatsAppFab />
       </div>
     </CartProvider></LocaleProvider></QueryClientProvider>
   );
