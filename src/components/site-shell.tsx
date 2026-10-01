@@ -1,9 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, Phone, ShieldCheck, ShoppingBasket, Wrench, X } from "lucide-react";
+import { Menu, MessageCircle, Phone, ShieldCheck, ShoppingBasket, Wrench, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useLocale, type CopyKey } from "@/lib/i18n";
 import { useCart } from "@/lib/cart";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 const navItems: { label: CopyKey; to: "/" | "/products" | "/about" | "/contact" | "/cart" }[] = [
   { label: "home", to: "/" }, { label: "products", to: "/products" }, { label: "about", to: "/about" }, { label: "contact", to: "/contact" },
@@ -21,6 +22,10 @@ export function SiteHeader() {
     </div>
     {open && <nav className="border-t border-border bg-background px-4 py-4 md:hidden" aria-label="Mobile navigation"><div className="mx-auto flex max-w-7xl flex-col gap-1">{[...navItems, { label: "cart" as CopyKey, to: "/cart" as const }].map((item) => <Link key={item.to} to={item.to} onClick={() => setOpen(false)} className="px-3 py-3 text-sm font-semibold text-foreground">{t(item.label)}</Link>)}</div></nav>}
   </header>;
+}
+export function WhatsAppFab() {
+  const { language, t } = useLocale();
+  return <a href={buildWhatsAppUrl([], {}, language)} target="_blank" rel="noopener noreferrer" aria-label={t("whatsapp")} title={t("whatsapp")} className="fixed bottom-5 right-5 z-50 grid size-14 place-items-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none"><MessageCircle className="size-7" /></a>;
 }
 export function SiteFooter() {
   const { language, t } = useLocale();
