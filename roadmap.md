@@ -5,8 +5,9 @@
 - [x] Build Home, Products, About Us and Contact / Quote pages.
 - [x] Add search, filters and product-prefilled quote requests.
 - [x] Validate desktop and mobile catalog and quote flows.
-- [ ] Make French the default and provide a complete French / English switch.
-- [ ] Add an automatically rotating homepage image.
-- [ ] Add individual product pages with available specifications and optional documents/badges.
-- [ ] Add an inquiry cart with quantities and a contact form populated from the cart.
-- [ ] Verify desktop and mobile flows.
+- [x] Make French the default and provide a complete French / English switch.
+- [x] Add an automatically rotating homepage image.
+- [x] Add individual product pages with available specifications and optional documents/badges.
+- [x] Add an inquiry cart with quantities and a contact form populated from the cart.
+- [x] Save submitted inquiries privately without payment or order placement.
+- [x] Verify desktop and mobile flows.

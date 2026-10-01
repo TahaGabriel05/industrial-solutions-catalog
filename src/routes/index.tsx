@@ -29,16 +29,16 @@ function Index() {
   useEffect(() => { if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return; const timer = window.setInterval(() => setSlide((current) => (current + 1) % slides.length), 5000); return () => window.clearInterval(timer); }, []);
   return (
     <>
-      <section className="relative min-h-[620px] overflow-hidden bg-primary text-primary-foreground lg:min-h-[680px]">
+      <section className="relative overflow-hidden bg-primary text-primary-foreground lg:min-h-[680px]">
         {slides.map((src, index) => <img key={src} src={src} alt="" aria-hidden="true" width={1536} height={1024} className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${slide === index ? "opacity-35" : "opacity-0"}`} />)}
         <div className="absolute inset-0 bg-hero-overlay" />
-        <div className="relative mx-auto flex min-h-[620px] max-w-7xl items-center px-4 py-24 sm:px-6 lg:min-h-[680px] lg:px-8">
+        <div className="relative mx-auto flex max-w-7xl items-center px-4 py-12 sm:px-6 sm:py-20 lg:min-h-[680px] lg:px-8">
           <div className="max-w-3xl">
              <p className="section-kicker text-accent">{language === "fr" ? "Fournitures industrielles · Assistance technique" : "Industrial supply · Technical support"}</p>
              <h1 className="mt-5 max-w-3xl font-display text-5xl font-bold leading-[0.98] text-primary-foreground sm:text-6xl lg:text-7xl">{language === "fr" ? <>Le bon équipement.<br />Pour le travail de terrain.</> : <>The right equipment.<br />Ready for real work.</>}</h1>
              <p className="mt-6 max-w-xl text-base leading-7 text-primary-foreground/75 sm:text-lg">{language === "fr" ? "Outillage, fixations, raccords et robinetterie sélectionnés pour leur fiabilité dans les environnements exigeants." : "Professional tools, fasteners, fittings and flow-control products selected for reliability in demanding environments."}</p>
              <div className="mt-9 flex flex-wrap gap-3"><Button asChild size="lg"><Link to="/products">{t("browse")} <ArrowRight /></Link></Button><Button asChild variant="outline" size="lg" className="border-primary-foreground/40 bg-primary-foreground/5 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><Link to="/contact">{t("quote")}</Link></Button></div>
-             <div className="mt-12 grid max-w-2xl grid-cols-1 gap-4 border-t border-primary-foreground/20 pt-6 text-xs text-primary-foreground/65 sm:grid-cols-3"><span className="flex items-center gap-2"><CircleCheck className="size-4 text-accent" /> {language === "fr" ? "Caractéristiques détaillées" : "Verified specifications"}</span><span className="flex items-center gap-2"><CircleCheck className="size-4 text-accent" /> {language === "fr" ? "Fournitures professionnelles" : "Trade-grade supply"}</span><span className="flex items-center gap-2"><CircleCheck className="size-4 text-accent" /> {language === "fr" ? "Devis personnalisés" : "Responsive quotations"}</span></div>
+              <div className="mt-8 grid max-w-2xl grid-cols-1 gap-3 border-t border-primary-foreground/20 pt-5 text-xs text-primary-foreground/65 sm:mt-12 sm:grid-cols-3 sm:gap-4 sm:pt-6"><span className="flex items-center gap-2"><CircleCheck className="size-4 text-accent" /> {language === "fr" ? "Caractéristiques détaillées" : "Verified specifications"}</span><span className="flex items-center gap-2"><CircleCheck className="size-4 text-accent" /> {language === "fr" ? "Fournitures professionnelles" : "Trade-grade supply"}</span><span className="flex items-center gap-2"><CircleCheck className="size-4 text-accent" /> {language === "fr" ? "Devis personnalisés" : "Responsive quotations"}</span></div>
           </div>
         </div>
       </section>
