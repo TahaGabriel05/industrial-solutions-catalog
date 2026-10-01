@@ -82,6 +82,8 @@
   --muted: oklch(0.95 0.008 247);
   --muted-foreground: oklch(0.49 0.025 250);
   --accent: oklch(0.66 0.19 43);
+  --whatsapp: oklch(0.72 0.19 155);
+  --whatsapp-foreground: oklch(1 0 0);
   --accent-foreground: oklch(0.99 0.003 75);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);

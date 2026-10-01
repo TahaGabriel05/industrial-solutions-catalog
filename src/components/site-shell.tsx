@@ -25,7 +25,7 @@ export function SiteHeader() {
 }
 export function WhatsAppFab() {
   const { language, t } = useLocale();
-  return <a href={buildWhatsAppUrl([], {}, language)} target="_blank" rel="noopener noreferrer" aria-label={t("whatsapp")} title={t("whatsapp")} className="fixed bottom-5 right-5 z-50 grid size-14 place-items-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none"><MessageCircle className="size-7" /></a>;
+  return <a href={buildWhatsAppUrl([], {}, language)} target="_blank" rel="noopener noreferrer" aria-label={t("whatsapp")} title={t("whatsapp")} className="fixed bottom-5 right-5 z-50 grid size-14 place-items-center rounded-full bg-whatsapp text-whatsapp-foreground shadow-lg transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-reduce:transition-none"><MessageCircle className="size-7" /></a>;
 }
 export function SiteFooter() {
   const { language, t } = useLocale();
