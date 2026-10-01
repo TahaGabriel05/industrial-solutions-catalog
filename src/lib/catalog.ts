@@ -11,6 +11,7 @@ export type Product = {
   subcategory: string;
   image: string;
   specs: string[];
+  specsFr: string[];
   nameFr: string;
   description: string;
   descriptionFr: string;
@@ -79,6 +80,7 @@ export const products: Product[] = [
     subcategory: "Hand Tools",
     image: toolsCover,
     specs: ["Chrome vanadium steel", "Sizes 8–24 mm", "DIN 3113 compliant"],
+    specsFr: ["Acier chrome-vanadium", "Tailles 8 à 24 mm", "Conforme à la norme DIN 3113"],
     nameFr: "Jeu de 12 clés mixtes", description: "A workshop-ready combination wrench set for routine maintenance and assembly.", descriptionFr: "Jeu de clés mixtes pour les travaux quotidiens de maintenance et d'assemblage.",
   },
   {
@@ -89,6 +91,7 @@ export const products: Product[] = [
     subcategory: "Socket & Torque",
     image: toolsCover,
     specs: ["1/2 in drive", "72-tooth ratchet", "24-piece metric set"],
+    specsFr: ["Carré d'entraînement 1/2 pouce", "Cliquet 72 dents", "Coffret métrique de 24 pièces"],
     nameFr: "Coffret de douilles et cliquet industriel", description: "Metric socket and ratchet set for workshop fastening tasks.", descriptionFr: "Coffret métrique de douilles et cliquet pour les travaux de serrage en atelier.",
   },
   {
@@ -99,6 +102,7 @@ export const products: Product[] = [
     subcategory: "Bolts & Nuts",
     image: fastenersCover,
     specs: ["Grade 8.8", "M12 × 60 mm", "Zinc plated finish"],
+    specsFr: ["Classe 8.8", "M12 × 60 mm", "Finition zinguée"],
     nameFr: "Boulon hexagonal haute résistance", description: "Grade 8.8 hex bolt with a zinc-plated finish for industrial fastening.", descriptionFr: "Boulon hexagonal de classe 8.8 avec finition zinguée pour la fixation industrielle.", dimensions: "M12 × 60 mm", color: "Zinc plated",
   },
   {
@@ -109,6 +113,7 @@ export const products: Product[] = [
     subcategory: "Anchors",
     image: fastenersCover,
     specs: ["A4 stainless steel", "M10 × 100 mm", "Concrete applications"],
+    specsFr: ["Acier inoxydable A4", "M10 × 100 mm", "Pour applications sur béton"],
     nameFr: "Goujon d'ancrage en acier inoxydable", description: "A4 stainless steel wedge anchor for concrete applications.", descriptionFr: "Goujon d'ancrage en inox A4 destiné aux applications sur béton.", dimensions: "M10 × 100 mm",
   },
   {
@@ -119,6 +124,7 @@ export const products: Product[] = [
     subcategory: "Hydraulic Fittings",
     image: fittingsCover,
     specs: ["316 stainless steel", "3/8 in BSP", "350 bar working pressure"],
+    specsFr: ["Acier inoxydable 316", "Filetage BSP 3/8 pouce", "Pression de service 350 bar"],
     nameFr: "Coupleur hydraulique rapide", description: "Quick-release hydraulic connection for demanding fluid systems.", descriptionFr: "Connexion hydraulique rapide pour les circuits de fluides exigeants.", dimensions: "3/8 in BSP",
   },
   {
@@ -129,6 +135,7 @@ export const products: Product[] = [
     subcategory: "Flanges",
     image: fittingsCover,
     specs: ["DN50 / PN16", "Raised face", "EN 1092-1 standard"],
+    specsFr: ["DN50 / PN16", "Face surélevée", "Norme EN 1092-1"],
     nameFr: "Bride à collerette à souder", description: "Raised-face weld neck flange for industrial pipe connections.", descriptionFr: "Bride à collerette avec face surélevée pour les raccordements de tuyauterie industrielle.", dimensions: "DN50 / PN16",
   },
   {
@@ -139,6 +146,7 @@ export const products: Product[] = [
     subcategory: "Ball Valves",
     image: valvesCover,
     specs: ["1 in BSP female", "PN25 rated", "PTFE seat"],
+    specsFr: ["Filetage femelle BSP 1 pouce", "Pression nominale PN25", "Siège en PTFE"],
     nameFr: "Vanne à boisseau sphérique en laiton", description: "Full-bore brass ball valve for reliable flow isolation.", descriptionFr: "Vanne à passage intégral en laiton pour une isolation fiable du débit.", dimensions: "1 in BSP",
   },
   {
@@ -149,6 +157,7 @@ export const products: Product[] = [
     subcategory: "Gate Valves",
     image: valvesCover,
     specs: ["DN40 connection", "PN16 rated", "Non-rising stem"],
+    specsFr: ["Raccordement DN40", "Pression nominale PN16", "Tige non montante"],
     nameFr: "Vanne à opercule industrielle en laiton", description: "Brass gate valve for controlled flow in industrial systems.", descriptionFr: "Vanne à opercule en laiton pour la régulation du débit dans les installations industrielles.", dimensions: "DN40",
   },
 ];

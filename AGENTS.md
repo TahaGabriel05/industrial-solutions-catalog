@@ -14,4 +14,5 @@
 - Keep catalog hierarchy and product records centralized in `src/lib/catalog.ts` so future products and translations remain data-driven.
 - Keep shared public-site navigation and footer in `src/components/site-shell.tsx` so all catalog pages use one consistent shell.
 - Keep French/English interface copy in `src/lib/i18n.tsx` and translated catalog records in `src/lib/catalog.ts` so language changes stay consistent across pages.
-- Keep the inquiry cart in `src/lib/cart.tsx` with browser-local persistence, since no order service is connected and drafts must not be presented as sent orders.
+- Keep the inquiry cart in `src/lib/cart.tsx` with browser-local persistence; only a successful form submission becomes a saved inquiry, never an order.
+- Save public quote inquiries through a validated server function into a private Cloud table, since customer contact details must not be readable by visitors.
