@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Building2, CheckCircle2, Mail, Phone, Send } from "lucide-react";
+import { Building2, CheckCircle2, Mail, MessageCircle, Phone, Send } from "lucide-react";
 import { useState, type FormEvent, type ReactNode } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { submitInquiry } from "@/lib/inquiries.functions";
@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { findProductById, findProductBySku, productName } from "@/lib/catalog";
 import { useCart } from "@/lib/cart";
 import { useLocale } from "@/lib/i18n";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 const searchSchema = z.object({ product: z.string().optional() });
 export const Route = createFileRoute("/contact")({ validateSearch: searchSchema,
