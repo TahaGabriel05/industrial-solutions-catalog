@@ -10,6 +10,7 @@ export type WhatsAppCustomer = { name?: string; company?: string; phone?: string
 
 export function buildWhatsAppUrl(lines: WhatsAppLine[], customer: WhatsAppCustomer, language: Language): string {
   const fr = language === "fr";
+  if (!lines.length) return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(fr ? "Bonjour, je souhaite demander un devis." : "Hello, I would like to request a quote.")}`;
   const message: string[] = [fr ? "Bonjour, je souhaite demander un devis pour :" : "Hello, I would like to request a quote for:", ""];
   lines.forEach((line, index) => {
     message.push(`${index + 1}. ${line.name}`, `   ${fr ? "Référence" : "Reference"}: ${line.sku}`, `   ${fr ? "Quantité" : "Quantity"}: ${line.quantity}`);
