@@ -20,4 +20,5 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const setQuantity = (id: string, quantity: number) => setItems((current) => current.map((line) => line.id === id ? { ...line, quantity: Math.max(1, Math.min(9999, Math.floor(quantity) || 1)) } : line));
   return <Context.Provider value={{ items, add, remove, setQuantity, clear: () => setItems([]), count: items.reduce((sum, line) => sum + line.quantity, 0) }}>{children}</Context.Provider>;
 }
-export function useCart() { const value = useContext(Context); if (!value) throw new Error("CartProvider missing"); return value; }
+const fallback: CartContext = { items: [], add: () => {}, remove: () => {}, setQuantity: () => {}, clear: () => {}, count: 0 };
+export function useCart() { return useContext(Context) ?? fallback; }
