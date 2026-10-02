@@ -20,4 +20,5 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
   const setLanguage = (next: Language) => { setLanguageState(next); window.localStorage.setItem("atlas-language", next); };
   return <Context.Provider value={{ language, setLanguage, t: (key) => translations[key][language === "fr" ? 0 : 1] }}>{children}</Context.Provider>;
 }
-export function useLocale() { const value = useContext(Context); if (!value) throw new Error("LocaleProvider missing"); return value; }
+const fallback: LocaleContext = { language: "fr", setLanguage: () => {}, t: (key) => translations[key][0] };
+export function useLocale() { return useContext(Context) ?? fallback; }
