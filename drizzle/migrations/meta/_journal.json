@@ -8,6 +8,13 @@
       "when": 1790954327680,
       "tag": "0000_catalog_import",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790954338890,
+      "tag": "0001_product_images_policies",
+      "breakpoints": true
     }
   ]
 }
