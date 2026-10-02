@@ -174,3 +174,44 @@ export const subcategoryName = (name: string, language: "fr" | "en") => {
   }
   return name;
 };
+
+/* ---------- Imported (Cloud) catalog ---------- */
+export type RemoteCategory = { id: string; name: string; name_fr: string; subcategories: string[]; image_url: string | null };
+export type RemoteProduct = {
+  id: string; sku: string; name: string; name_fr: string; category_id: string; subcategory: string; image_url: string | null;
+  specs: string[]; specs_fr: string[]; description: string; description_fr: string;
+  brand: string | null; color: string | null; dimensions: string | null; weight: string | null; power: string | null;
+};
+export type RemoteCatalog = { categories: RemoteCategory[]; products: RemoteProduct[] };
+export type ImportedProduct = Product & { imagePath?: string; imported: true };
+
+export const productImageUrl = (path: string) => `/api/public/product-image/${path}`;
+export const isImported = (product: Product): product is ImportedProduct => (product as ImportedProduct).imported === true;
+
+const fallbackCover = toolsCover;
+export function mergeRemoteCatalog(remote?: RemoteCatalog | null) {
+  if (!remote) return;
+  const ensureCategory = (id: string, name: string, nameFr: string, image?: string | null) => {
+    let category = categories.find((item) => item.id === id);
+    if (!category) {
+      category = { id, name: name || nameFr || id, nameFr: nameFr || name || id, description: "", descriptionFr: "", image: image ? productImageUrl(image) : fallbackCover, subcategories: [], subcategoriesFr: [] };
+      categories.push(category);
+    }
+    return category;
+  };
+  const addSub = (category: Category, sub: string) => { if (sub && !category.subcategories.includes(sub)) { category.subcategories.push(sub); category.subcategoriesFr.push(sub); } };
+  for (const row of remote.categories) { const category = ensureCategory(row.id, row.name, row.name_fr, row.image_url); row.subcategories.forEach((sub) => addSub(category, sub)); }
+  for (const row of remote.products) {
+    const category = ensureCategory(row.category_id, row.category_id, row.category_id, row.image_url);
+    addSub(category, row.subcategory);
+    const specs = row.specs.length ? row.specs : row.specs_fr; const specsFr = row.specs_fr.length ? row.specs_fr : row.specs;
+    const mapped: ImportedProduct = {
+      id: row.id, sku: row.sku, name: row.name || row.name_fr, nameFr: row.name_fr || row.name, category: row.category_id, subcategory: row.subcategory,
+      image: row.image_url ? productImageUrl(row.image_url) : category.image, imagePath: row.image_url ?? undefined, specs, specsFr,
+      description: row.description || row.description_fr, descriptionFr: row.description_fr || row.description,
+      brand: row.brand ?? undefined, color: row.color ?? undefined, dimensions: row.dimensions ?? undefined, weight: row.weight ?? undefined, power: row.power ?? undefined, imported: true,
+    };
+    const index = products.findIndex((item) => item.id === row.id);
+    if (index >= 0) products[index] = mapped; else products.push(mapped);
+  }
+}

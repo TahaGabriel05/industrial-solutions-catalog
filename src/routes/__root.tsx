@@ -15,6 +15,9 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteFooter, SiteHeader, WhatsAppFab } from "../components/site-shell";
 import { LocaleProvider } from "../lib/i18n";
 import { CartProvider } from "../lib/cart";
+import { mergeRemoteCatalog } from "../lib/catalog";
+import { getImportedCatalog } from "../lib/catalog.functions";
+import { Toaster } from "../components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -96,6 +99,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
+  loader: async () => {
+    try { const remote = await getImportedCatalog(); mergeRemoteCatalog(remote); return remote; } catch { return null; }
+  },
+  staleTime: 60_000,
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
@@ -118,6 +125,7 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  mergeRemoteCatalog(Route.useLoaderData()); // idempotent; makes imported products available after hydration
 
   return (
     <QueryClientProvider client={queryClient}><LocaleProvider><CartProvider>
@@ -126,6 +134,7 @@ function RootComponent() {
         <main className="flex-1"><Outlet /></main>
         <SiteFooter />
         <WhatsAppFab />
+        <Toaster />
       </div>
     </CartProvider></LocaleProvider></QueryClientProvider>
   );
