@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { findProductById, findProductBySku } from "./catalog";
+import { findProductById, findProductBySku, mergeRemoteCatalog } from "./catalog";
+import { getImportedCatalog } from "./catalog.functions";
 
 const inquirySchema = z.object({
   name: z.string().trim().min(1).max(200),
@@ -18,6 +19,7 @@ export const submitInquiry = createServerFn({ method: "POST" })
   .inputValidator((input) => inquirySchema.parse(input))
   .handler(async ({ data }) => {
     if (data.website) return { ok: true }; // Ignore automated submissions filling the hidden field.
+    if (data.items.some((line) => !findProductById(line.id))) mergeRemoteCatalog(await getImportedCatalog());
     const items = data.items.map((line) => {
       const product = findProductById(line.id);
       if (!product) throw new Error("Unknown product in inquiry");

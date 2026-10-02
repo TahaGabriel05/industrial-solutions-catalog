@@ -3,12 +3,20 @@ import { ArrowLeft, Check, Download, ShoppingBasket } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { categories, categoryName, findProductById, productName } from "@/lib/catalog";
+import { categories, categoryName, findProductById, mergeRemoteCatalog, productName } from "@/lib/catalog";
+import { getImportedCatalog } from "@/lib/catalog.functions";
 import { useCart } from "@/lib/cart";
 import { useLocale } from "@/lib/i18n";
 
 export const Route = createFileRoute("/products/$productId")({
-  loader: ({ params }) => { const product = findProductById(params.productId); if (!product) throw notFound(); return product; },
+  loader: async ({ params }) => {
+    let product = findProductById(params.productId);
+    if (!product) { try { mergeRemoteCatalog(await getImportedCatalog()); } catch { /* catalog stays static */ } product = findProductById(params.productId); }
+    if (!product) throw notFound();
+    return product;
+  },
+  notFoundComponent: () => <div className="mx-auto max-w-7xl px-4 py-20 text-center"><h1 className="font-display text-2xl font-bold">Produit introuvable / Product not found</h1><Link to="/products" className="mt-4 inline-block text-accent">Catalogue</Link></div>,
+  errorComponent: () => <div className="mx-auto max-w-7xl px-4 py-20 text-center"><h1 className="font-display text-2xl font-bold">Erreur de chargement / Loading error</h1><Link to="/products" className="mt-4 inline-block text-accent">Catalogue</Link></div>,
   head: ({ loaderData }) => ({ meta: [
     { title: loaderData ? `${loaderData.nameFr} | Atlas Industrial Supply` : "Produit introuvable | Atlas" },
     { name: "description", content: loaderData?.descriptionFr ?? "Consultez notre catalogue de produits industriels." },
