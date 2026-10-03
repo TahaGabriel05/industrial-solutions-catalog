@@ -68,7 +68,7 @@ function ImportPage() {
       for (const row of valid) {
         if (row.file) {
           const path = `${slugify(row.categoryId)}/${slugify(row.sku)}.${(row.ext ?? "jpg").toLowerCase()}`;
-          const { error } = await supabase.storage.from("product-images").upload(path, row.file, { upsert: true, contentType: row.file.type || undefined });
+          const { error } = await supabase.storage.from("product-images").upload(path, row.file, { upsert: true, ...(row.file.type ? { contentType: row.file.type } : {}) });
           if (error) throw error;
           imagePaths.set(row.key, path);
         }

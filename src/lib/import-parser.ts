@@ -5,8 +5,8 @@ import { categories, products, isImported, type Product } from "./catalog";
 export type InputFile = { path: string; file: Blob };
 export type DraftRow = {
   key: string; sku: string; name: string; nameFr: string; categoryId: string; categoryLabel: string; newCategory: boolean;
-  subcategory: string; file?: Blob; ext?: string; previewUrl?: string; existing?: Product; status: "new" | "update"; error?: string;
-  brand?: string; color?: string; dimensions?: string; weight?: string; power?: string; description?: string; descriptionFr?: string; specs?: string[]; specsFr?: string[];
+  subcategory: string; file?: Blob | undefined; ext?: string | undefined; previewUrl?: string | undefined; existing?: Product | undefined; status: "new" | "update"; error?: string | undefined;
+  brand?: string | undefined; color?: string | undefined; dimensions?: string | undefined; weight?: string | undefined; power?: string | undefined; description?: string | undefined; descriptionFr?: string | undefined; specs?: string[] | undefined; specsFr?: string[] | undefined;
 };
 
 const IMAGE = /\.(jpe?g|png|webp|gif)$/i;
@@ -20,7 +20,7 @@ const ignored = (path: string) => path.split("/").some((part) => part.startsWith
 export async function expandZip(file: Blob): Promise<InputFile[]> {
   const zip = await JSZip.loadAsync(file);
   const out: InputFile[] = [];
-  for (const entry of Object.values(zip.files)) if (!entry.dir) out.push({ path: entry.name, file: await entry.async("blob") });
+  for (const entry of Object.values(zip.files) as JSZip.JSZipObject[]) if (!entry.dir) out.push({ path: entry.name, file: await entry.async("blob") });
   return out;
 }
 
@@ -58,8 +58,8 @@ export async function buildDrafts(input: InputFile[]): Promise<DraftRow[]> {
 
   for (const csv of csvs) {
     const text = await csv.file.text();
-    const parsed = Papa.parse<Record<string, string>>(text, { header: true, skipEmptyLines: true, transformHeader: (h) => normalize(h).replace(/\s+/g, "_") });
-    parsed.data.forEach((r, i) => {
+    const parsed = Papa.parse<Record<string, string>>(text, { header: true, skipEmptyLines: true, transformHeader: (h: string) => normalize(h).replace(/\s+/g, "_") });
+    parsed.data.forEach((r: Record<string, string>, i: number) => {
       const name = (r["name"] || r["name_fr"] || r["nom"] || "").trim();
       const nameFr = (r["name_fr"] || r["nom"] || r["name"] || "").trim();
       const catLabel = (r["category"] || r["categorie"] || "Divers").trim();

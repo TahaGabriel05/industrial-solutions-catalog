@@ -15,13 +15,13 @@ export type Product = {
   nameFr: string;
   description: string;
   descriptionFr: string;
-  brand?: string;
-  color?: string;
-  dimensions?: string;
-  weight?: string;
-  power?: string;
+  brand?: string | undefined;
+  color?: string | undefined;
+  dimensions?: string | undefined;
+  weight?: string | undefined;
+  power?: string | undefined;
   images?: string[];
-  technicalSheetUrl?: string;
+  technicalSheetUrl?: string | undefined;
   badges?: string[];
 };
 
@@ -183,7 +183,7 @@ export type RemoteProduct = {
   brand: string | null; color: string | null; dimensions: string | null; weight: string | null; power: string | null;
 };
 export type RemoteCatalog = { categories: RemoteCategory[]; products: RemoteProduct[] };
-export type ImportedProduct = Product & { imagePath?: string; imported: true };
+export type ImportedProduct = Product & { imagePath?: string | undefined; imported: true };
 
 export const productImageUrl = (path: string) => `/api/public/product-image/${path}`;
 export const isImported = (product: Product): product is ImportedProduct => (product as ImportedProduct).imported === true;
