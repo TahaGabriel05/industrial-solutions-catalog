@@ -89,7 +89,7 @@ function ImportPage() {
         const ex = row.existing && isImported(row.existing) ? row.existing : undefined;
         return {
           id: ex?.id ?? `imp-${slugify(row.sku)}`, sku: row.sku, name: row.name || ex?.name || row.nameFr, name_fr: row.nameFr || ex?.nameFr || row.name,
-          category_id: row.categoryId, subcategory: row.subcategory || ex?.subcategory || "", image_url: imagePaths.get(row.key) ?? ex?.imagePath ?? null,
+          hidden: false, category_id: row.categoryId, subcategory: row.subcategory || ex?.subcategory || "", image_url: imagePaths.get(row.key) ?? ex?.imagePath ?? null,
           specs: row.specs?.length ? row.specs : ex?.specs ?? [], specs_fr: row.specsFr?.length ? row.specsFr : ex?.specsFr ?? [],
           description: row.description ?? ex?.description ?? "", description_fr: row.descriptionFr ?? ex?.descriptionFr ?? "",
           brand: row.brand ?? ex?.brand ?? null, color: row.color ?? ex?.color ?? null, dimensions: row.dimensions ?? ex?.dimensions ?? null, weight: row.weight ?? ex?.weight ?? null, power: row.power ?? ex?.power ?? null,
