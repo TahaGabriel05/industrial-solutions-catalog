@@ -23,6 +23,8 @@ export type Product = {
   images?: string[];
   technicalSheetUrl?: string | undefined;
   badges?: string[];
+  badgeImages?: string[] | undefined;
+  stock?: number | undefined;
 };
 
 export type Category = {
@@ -176,19 +178,25 @@ export const subcategoryName = (name: string, language: "fr" | "en") => {
 };
 
 /* ---------- Imported (Cloud) catalog ---------- */
-export type RemoteCategory = { id: string; name: string; name_fr: string; subcategories: string[]; image_url: string | null };
+export type RemoteCategory = {
+  id: string; name: string; name_fr: string; subcategories: string[]; image_url: string | null;
+  description?: string; description_fr?: string; sort_order?: number | null; hidden?: boolean;
+};
 export type RemoteProduct = {
   id: string; sku: string; name: string; name_fr: string; category_id: string; subcategory: string; image_url: string | null;
   specs: string[]; specs_fr: string[]; description: string; description_fr: string;
   brand: string | null; color: string | null; dimensions: string | null; weight: string | null; power: string | null;
+  stock?: number | null; images?: string[]; technical_sheet_path?: string | null; badges?: string[]; badge_images?: string[]; hidden?: boolean;
 };
-export type RemoteCatalog = { categories: RemoteCategory[]; products: RemoteProduct[] };
+export type SiteSettings = { logo_path: string | null; favicon_path: string | null };
+export type RemoteCatalog = { categories: RemoteCategory[]; products: RemoteProduct[]; settings?: SiteSettings | null };
 export type ImportedProduct = Product & { imagePath?: string | undefined; imported: true };
 
 export const productImageUrl = (path: string) => `/api/public/product-image/${path}`;
 export const isImported = (product: Product): product is ImportedProduct => (product as ImportedProduct).imported === true;
 
 const fallbackCover = toolsCover;
+const staticCategoryOrder = categories.map((c) => c.id);
 export function mergeRemoteCatalog(remote?: RemoteCatalog | null) {
   if (!remote) return;
   const ensureCategory = (id: string, name: string, nameFr: string, image?: string | null) => {
@@ -200,18 +208,47 @@ export function mergeRemoteCatalog(remote?: RemoteCatalog | null) {
     return category;
   };
   const addSub = (category: Category, sub: string) => { if (sub && !category.subcategories.includes(sub)) { category.subcategories.push(sub); category.subcategoriesFr.push(sub); } };
-  for (const row of remote.categories) { const category = ensureCategory(row.id, row.name, row.name_fr, row.image_url); row.subcategories.forEach((sub) => addSub(category, sub)); }
+  for (const row of remote.categories) {
+    if (row.hidden) continue;
+    const category = ensureCategory(row.id, row.name, row.name_fr, row.image_url);
+    if (row.name) category.name = row.name;
+    if (row.name_fr) category.nameFr = row.name_fr;
+    if (row.description) category.description = row.description;
+    if (row.description_fr) category.descriptionFr = row.description_fr;
+    if (row.image_url) category.image = productImageUrl(row.image_url);
+    if (row.sort_order !== undefined && row.sort_order !== null) {
+      // remote list is authoritative for subcategories once the admin has saved the category
+      const fr = row.subcategories.map((sub) => { const i = category.subcategories.indexOf(sub); return i >= 0 ? category.subcategoriesFr[i] ?? sub : sub; });
+      category.subcategories = [...row.subcategories]; category.subcategoriesFr = fr;
+    } else row.subcategories.forEach((sub) => addSub(category, sub));
+  }
   for (const row of remote.products) {
-    const category = ensureCategory(row.category_id, row.category_id, row.category_id, row.image_url);
+    const index = products.findIndex((item) => item.id === row.id);
+    if (row.hidden) { if (index >= 0) products.splice(index, 1); continue; }
+    const category = ensureCategory(row.category_id, row.category_id, row.category_id, null);
     addSub(category, row.subcategory);
+    const existing = index >= 0 ? products[index] : undefined;
     const specs = row.specs.length ? row.specs : row.specs_fr; const specsFr = row.specs_fr.length ? row.specs_fr : row.specs;
+    const gallery = (row.images ?? []).map(productImageUrl);
+    const mainPath = row.image_url ?? row.images?.[0];
     const mapped: ImportedProduct = {
       id: row.id, sku: row.sku, name: row.name || row.name_fr, nameFr: row.name_fr || row.name, category: row.category_id, subcategory: row.subcategory,
-      image: row.image_url ? productImageUrl(row.image_url) : category.image, imagePath: row.image_url ?? undefined, specs, specsFr,
+      image: mainPath ? productImageUrl(mainPath) : existing && !isImported(existing) ? existing.image : category.image, imagePath: mainPath ?? undefined, specs, specsFr,
       description: row.description || row.description_fr, descriptionFr: row.description_fr || row.description,
-      brand: row.brand ?? undefined, color: row.color ?? undefined, dimensions: row.dimensions ?? undefined, weight: row.weight ?? undefined, power: row.power ?? undefined, imported: true,
+      brand: row.brand ?? undefined, color: row.color ?? undefined, dimensions: row.dimensions ?? undefined, weight: row.weight ?? undefined, power: row.power ?? undefined,
+      images: gallery.length ? gallery : existing?.images ?? [],
+      technicalSheetUrl: row.technical_sheet_path ? productImageUrl(row.technical_sheet_path) : undefined,
+      badges: row.badges ?? [], badgeImages: (row.badge_images ?? []).map(productImageUrl), stock: row.stock ?? undefined, imported: true,
     };
-    const index = products.findIndex((item) => item.id === row.id);
     if (index >= 0) products[index] = mapped; else products.push(mapped);
+  }
+  for (const row of remote.categories) if (row.hidden) {
+    const i = categories.findIndex((c) => c.id === row.id); if (i >= 0) categories.splice(i, 1);
+    for (let j = products.length - 1; j >= 0; j--) if (products[j]!.category === row.id) products.splice(j, 1);
+  }
+  const order = new Map(remote.categories.filter((c) => c.sort_order != null).map((c) => [c.id, c.sort_order!]));
+  if (order.size) {
+    const key = (id: string) => order.get(id) ?? 10_000 + (staticCategoryOrder.indexOf(id) + 1 || 999);
+    categories.sort((a, b) => key(a.id) - key(b.id));
   }
 }
