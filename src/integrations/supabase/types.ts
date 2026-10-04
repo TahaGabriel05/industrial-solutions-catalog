@@ -17,32 +17,46 @@ export type Database = {
       catalog_categories: {
         Row: {
           created_at: string
+          description: string
+          description_fr: string
+          hidden: boolean
           id: string
           image_url: string | null
           name: string
           name_fr: string
+          sort_order: number | null
           subcategories: string[]
         }
         Insert: {
           created_at?: string
+          description?: string
+          description_fr?: string
+          hidden?: boolean
           id: string
           image_url?: string | null
           name: string
           name_fr: string
+          sort_order?: number | null
           subcategories?: string[]
         }
         Update: {
           created_at?: string
+          description?: string
+          description_fr?: string
+          hidden?: boolean
           id?: string
           image_url?: string | null
           name?: string
           name_fr?: string
+          sort_order?: number | null
           subcategories?: string[]
         }
         Relationships: []
       }
       catalog_products: {
         Row: {
+          badge_images: string[]
+          badges: string[]
           brand: string | null
           category_id: string
           color: string | null
@@ -50,18 +64,24 @@ export type Database = {
           description: string
           description_fr: string
           dimensions: string | null
+          hidden: boolean
           id: string
           image_url: string | null
+          images: string[]
           name: string
           name_fr: string
           power: string | null
           sku: string
           specs: string[]
           specs_fr: string[]
+          stock: number | null
           subcategory: string
+          technical_sheet_path: string | null
           weight: string | null
         }
         Insert: {
+          badge_images?: string[]
+          badges?: string[]
           brand?: string | null
           category_id: string
           color?: string | null
@@ -69,18 +89,24 @@ export type Database = {
           description?: string
           description_fr?: string
           dimensions?: string | null
+          hidden?: boolean
           id: string
           image_url?: string | null
+          images?: string[]
           name: string
           name_fr: string
           power?: string | null
           sku: string
           specs?: string[]
           specs_fr?: string[]
+          stock?: number | null
           subcategory?: string
+          technical_sheet_path?: string | null
           weight?: string | null
         }
         Update: {
+          badge_images?: string[]
+          badges?: string[]
           brand?: string | null
           category_id?: string
           color?: string | null
@@ -88,15 +114,19 @@ export type Database = {
           description?: string
           description_fr?: string
           dimensions?: string | null
+          hidden?: boolean
           id?: string
           image_url?: string | null
+          images?: string[]
           name?: string
           name_fr?: string
           power?: string | null
           sku?: string
           specs?: string[]
           specs_fr?: string[]
+          stock?: number | null
           subcategory?: string
+          technical_sheet_path?: string | null
           weight?: string | null
         }
         Relationships: []
@@ -139,6 +169,27 @@ export type Database = {
           phone?: string
           product_reference?: string | null
           quantity?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          favicon_path: string | null
+          id: string
+          logo_path: string | null
+          updated_at: string
+        }
+        Insert: {
+          favicon_path?: string | null
+          id?: string
+          logo_path?: string | null
+          updated_at?: string
+        }
+        Update: {
+          favicon_path?: string | null
+          id?: string
+          logo_path?: string | null
           updated_at?: string
         }
         Relationships: []

@@ -15,6 +15,13 @@
       "when": 1790954338890,
       "tag": "0001_product_images_policies",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791127690099,
+      "tag": "0002_admin_panel",
+      "breakpoints": true
     }
   ]
 }
