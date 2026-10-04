@@ -17,9 +17,10 @@ export const getImportedCatalog = createServerFn({ method: "GET" }).handler(asyn
       },
     },
   });
-  const [cats, prods] = await Promise.all([
-    client.from("catalog_categories").select("id, name, name_fr, subcategories, image_url").order("created_at"),
-    client.from("catalog_products").select("id, sku, name, name_fr, category_id, subcategory, image_url, specs, specs_fr, description, description_fr, brand, color, dimensions, weight, power").order("created_at"),
+  const [cats, prods, settings] = await Promise.all([
+    client.from("catalog_categories").select("id, name, name_fr, subcategories, image_url, description, description_fr, sort_order, hidden").order("created_at"),
+    client.from("catalog_products").select("id, sku, name, name_fr, category_id, subcategory, image_url, specs, specs_fr, description, description_fr, brand, color, dimensions, weight, power, stock, images, technical_sheet_path, badges, badge_images, hidden").order("created_at"),
+    client.from("site_settings").select("logo_path, favicon_path").eq("id", "site").maybeSingle(),
   ]);
-  return { categories: cats.data ?? [], products: prods.data ?? [] };
+  return { categories: cats.data ?? [], products: prods.data ?? [], settings: settings.data ?? null };
 });
