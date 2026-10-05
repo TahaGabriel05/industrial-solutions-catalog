@@ -10,8 +10,8 @@ import { useLocale } from "@/lib/i18n";
 
 export const Route = createFileRoute("/products/$productId")({
   loader: async ({ params }) => {
-    let product = findProductById(params.productId);
-    if (!product) { try { mergeRemoteCatalog(await getImportedCatalog()); } catch { /* catalog stays static */ } product = findProductById(params.productId); }
+    try { mergeRemoteCatalog(await getImportedCatalog()); } catch { /* catalog stays static */ }
+    const product = findProductById(params.productId);
     if (!product) throw notFound();
     return product;
   },
