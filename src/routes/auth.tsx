@@ -31,7 +31,7 @@ function AuthPage() {
     const email = String(form.get("email")); const password = String(form.get("password"));
     if (mode === "in") {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) setMsg(fr ? "Email ou mot de passe incorrect." : "Wrong email or password."); else navigate({ to: "/admin/import" });
+      if (error) setMsg(fr ? "Email ou mot de passe incorrect." : "Wrong email or password."); else navigate({ to: "/admin" });
     } else {
       const { error } = await supabase.auth.signUp({ email, password, options: { emailRedirectTo: `${window.location.origin}/auth` } });
       setMsg(error ? error.message : fr ? "Compte créé. Confirmez votre email puis connectez-vous." : "Account created. Confirm your email, then sign in.");

@@ -15,7 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteFooter, SiteHeader, WhatsAppFab } from "../components/site-shell";
 import { LocaleProvider } from "../lib/i18n";
 import { CartProvider } from "../lib/cart";
-import { mergeRemoteCatalog } from "../lib/catalog";
+import { mergeRemoteCatalog, productImageUrl } from "../lib/catalog";
 import { getImportedCatalog } from "../lib/catalog.functions";
 import { Toaster } from "../components/ui/sonner";
 
@@ -80,7 +80,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
+  head: ({ loaderData }) => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -96,7 +96,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@500;600&family=Manrope:wght@400;500;600;700&display=swap" },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      loaderData?.settings?.favicon_path ? { rel: "icon", href: productImageUrl(loaderData.settings.favicon_path) } : { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
   loader: async () => {
@@ -125,14 +125,16 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  mergeRemoteCatalog(Route.useLoaderData()); // idempotent; makes imported products available after hydration
+  const remote = Route.useLoaderData();
+  const logoUrl = remote?.settings?.logo_path ? productImageUrl(remote.settings.logo_path) : undefined;
+  mergeRemoteCatalog(remote); // idempotent; makes imported products available after hydration
 
   return (
     <QueryClientProvider client={queryClient}><LocaleProvider><CartProvider>
       <div className="flex min-h-screen flex-col">
-        <SiteHeader />
+        <SiteHeader logoUrl={logoUrl} />
         <main className="flex-1"><Outlet /></main>
-        <SiteFooter />
+        <SiteFooter logoUrl={logoUrl} />
         <WhatsAppFab />
         <Toaster />
       </div>
