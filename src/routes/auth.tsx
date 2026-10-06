@@ -9,9 +9,9 @@ import { useLocale } from "@/lib/i18n";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({ meta: [
-    { title: "Espace administrateur | Atlas Industrial Supply" },
-    { name: "description", content: "Connexion à l'espace d'administration du catalogue Atlas." },
-    { property: "og:title", content: "Espace administrateur | Atlas" },
+    { title: "Espace administrateur | FINOUQ" },
+    { name: "description", content: "Connexion à l'espace d'administration du catalogue FINOUQ." },
+    { property: "og:title", content: "Espace administrateur | FINOUQ" },
     { property: "og:description", content: "Connexion administrateur du catalogue." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },

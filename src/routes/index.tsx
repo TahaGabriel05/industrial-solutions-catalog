@@ -12,9 +12,9 @@ import valvesCover from "@/assets/valves-cover.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
-    { title: "Atlas Industrial Supply | Outillage, fixations, raccords et vannes" },
+    { title: "FINOUQ | Outillage, fixations, raccords et vannes" },
     { name: "description", content: "Outillage professionnel, fixations, raccords industriels et robinetterie pour la maintenance, la construction et l'industrie." },
-    { property: "og:title", content: "Atlas Industrial Supply" },
+    { property: "og:title", content: "FINOUQ" },
     { property: "og:description", content: "Produits industriels conçus pour les professionnels." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },

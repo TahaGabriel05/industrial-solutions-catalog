@@ -1,8 +1,8 @@
 import type { Language } from "./i18n";
+import { BUSINESS } from "./business";
 
-// Business WhatsApp number in international format, digits only (no "+").
-// Placeholder — replace with the company's real WhatsApp Business number.
-export const WHATSAPP_NUMBER = "212600000000";
+// Moroccan international format excludes the domestic leading zero.
+export const WHATSAPP_NUMBER = BUSINESS.whatsappNumber;
 
 export type WhatsAppLine = { name: string; sku: string; quantity: number };
 
@@ -16,7 +16,7 @@ export function buildWhatsAppUrl(lines: WhatsAppLine[], customer: WhatsAppCustom
     message.push(`${index + 1}. ${line.name}`, `   ${fr ? "Référence" : "Reference"}: ${line.sku}`, `   ${fr ? "Quantité" : "Quantity"}: ${line.quantity}`);
   });
   message.push("", `${fr ? "Total articles" : "Total items"}: ${lines.reduce((sum, line) => sum + line.quantity, 0)} (${lines.length} ${fr ? "produits" : "products"})`);
-  const contact = [customer.name, customer.company, customer.phone, customer.email].filter((value) => value && value.trim());
-  if (contact.length) message.push("", fr ? "Coordonnées :" : "Contact details:", ...contact.map((value) => `- ${value!.trim()}`));
+  const contact = [customer.name, customer.company, customer.phone, customer.email].flatMap((value) => value?.trim() ? [value.trim()] : []);
+  if (contact.length) message.push("", fr ? "Coordonnées :" : "Contact details:", ...contact.map((value) => `- ${value}`));
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message.join("\n"))}`;
 }

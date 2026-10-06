@@ -19,3 +19,4 @@
 - Imported products live in Cloud tables (catalog_categories/catalog_products) and are merged into the static catalog arrays via `mergeRemoteCatalog` (root loader + product loader), so all synchronous lookups keep working.
 - Product images are stored in a private bucket and served through `/api/public/product-image/*`, because public buckets are blocked in this workspace.
 - Catalog writes are admin-only via `user_roles` + `has_role` RLS; the import tool lives under `_authenticated/`.
+- Keep public contact details and fixed inquiry recipients in `src/lib/business.ts` so contact links and WhatsApp actions use one source of truth.
