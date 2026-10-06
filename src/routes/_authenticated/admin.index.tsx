@@ -14,10 +14,10 @@ import { BrandingManager } from "@/components/admin/branding-manager";
 
 export const Route = createFileRoute("/_authenticated/admin/")({
   head: () => ({ meta: [
-    { title: "Panneau d'administration | Atlas Industrial Supply" },
+    { title: "Panneau d'administration | FINOUQ" },
     { name: "description", content: "Gérer les produits, catégories, logo et favicon du catalogue." },
-    { property: "og:title", content: "Panneau d'administration | Atlas" },
-    { property: "og:description", content: "Gestion du catalogue Atlas." },
+    { property: "og:title", content: "Panneau d'administration | FINOUQ" },
+    { property: "og:description", content: "Gestion du catalogue FINOUQ." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
     { name: "robots", content: "noindex" },

@@ -18,10 +18,10 @@ export const Route = createFileRoute("/products/$productId")({
   notFoundComponent: () => <div className="mx-auto max-w-7xl px-4 py-20 text-center"><h1 className="font-display text-2xl font-bold">Produit introuvable / Product not found</h1><Link to="/products" className="mt-4 inline-block text-accent">Catalogue</Link></div>,
   errorComponent: () => <div className="mx-auto max-w-7xl px-4 py-20 text-center"><h1 className="font-display text-2xl font-bold">Erreur de chargement / Loading error</h1><Link to="/products" className="mt-4 inline-block text-accent">Catalogue</Link></div>,
   head: ({ loaderData }) => ({ meta: [
-    { title: loaderData ? `${loaderData.nameFr} | Atlas Industrial Supply` : "Produit introuvable | Atlas" },
+    { title: loaderData ? `${loaderData.nameFr} | FINOUQ` : "Produit introuvable | FINOUQ" },
     { name: "description", content: loaderData?.descriptionFr ?? "Consultez notre catalogue de produits industriels." },
-    { property: "og:title", content: loaderData?.nameFr ?? "Produit introuvable | Atlas" },
-    { property: "og:description", content: loaderData?.descriptionFr ?? "Catalogue Atlas Industrial Supply" },
+    { property: "og:title", content: loaderData?.nameFr ?? "Produit introuvable | FINOUQ" },
+    { property: "og:description", content: loaderData?.descriptionFr ?? "Catalogue FINOUQ" },
     { property: "og:type", content: "product" }, { name: "twitter:card", content: "summary_large_image" },
   ] }),
   component: ProductPage,

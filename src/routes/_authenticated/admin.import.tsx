@@ -12,9 +12,9 @@ import { useLocale } from "@/lib/i18n";
 
 export const Route = createFileRoute("/_authenticated/admin/import")({
   head: () => ({ meta: [
-    { title: "Import de produits | Atlas Industrial Supply" },
+    { title: "Import de produits | FINOUQ" },
     { name: "description", content: "Importer des produits par dossier, ZIP ou CSV." },
-    { property: "og:title", content: "Import de produits | Atlas" },
+    { property: "og:title", content: "Import de produits | FINOUQ" },
     { property: "og:description", content: "Outil d'import du catalogue." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
