@@ -12,6 +12,6 @@
 - [x] Save submitted inquiries privately without payment or order placement.
 - [x] Verify desktop and mobile flows.- [x] Product import tool (folder / ZIP / CSV) with admin sign-in.
 - [x] Grant admin role to the owner's account.
-- [ ] Update website identity and contacts to FINOUQ.
+- [x] Update website identity and contacts to FINOUQ.
 - [ ] Send inquiry notifications to both business addresses (requires email domain setup).
-- [ ] Verify FINOUQ contacts and WhatsApp destinations.
+- [x] Verify FINOUQ contacts and WhatsApp destinations.
