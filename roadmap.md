@@ -15,3 +15,6 @@
 - [x] Update website identity and contacts to FINOUQ.
 - [ ] Send inquiry notifications to both business addresses (requires email domain setup).
 - [x] Verify FINOUQ contacts and WhatsApp destinations.
+- [ ] Add admin management for quote requests and confirmed cart inquiries.
+- [ ] Add admin management for homepage wallpapers, website theme, and all public icons.
+- [ ] Verify the expanded admin panel and public-site customization on desktop and mobile.
