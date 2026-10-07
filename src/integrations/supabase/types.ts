@@ -133,6 +133,7 @@ export type Database = {
       }
       inquiries: {
         Row: {
+          admin_notes: string
           company: string
           created_at: string
           email: string
@@ -143,9 +144,11 @@ export type Database = {
           phone: string
           product_reference: string | null
           quantity: number
+          status: string
           updated_at: string
         }
         Insert: {
+          admin_notes?: string
           company: string
           created_at?: string
           email: string
@@ -156,9 +159,11 @@ export type Database = {
           phone: string
           product_reference?: string | null
           quantity?: number
+          status?: string
           updated_at?: string
         }
         Update: {
+          admin_notes?: string
           company?: string
           created_at?: string
           email?: string
@@ -169,6 +174,7 @@ export type Database = {
           phone?: string
           product_reference?: string | null
           quantity?: number
+          status?: string
           updated_at?: string
         }
         Relationships: []
@@ -176,20 +182,29 @@ export type Database = {
       site_settings: {
         Row: {
           favicon_path: string | null
+          homepage_wallpapers: string[]
+          icons: Json
           id: string
           logo_path: string | null
+          theme: Json
           updated_at: string
         }
         Insert: {
           favicon_path?: string | null
+          homepage_wallpapers?: string[]
+          icons?: Json
           id?: string
           logo_path?: string | null
+          theme?: Json
           updated_at?: string
         }
         Update: {
           favicon_path?: string | null
+          homepage_wallpapers?: string[]
+          icons?: Json
           id?: string
           logo_path?: string | null
+          theme?: Json
           updated_at?: string
         }
         Relationships: []
